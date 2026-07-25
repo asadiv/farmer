@@ -14,7 +14,7 @@ from sklearn.impute import SimpleImputer
 df = pd.read_csv("data_processed.csv")
 
 #### Get features ready to model! 
-y = df.pop("cons_general").to_numpy()
+y = df.pop("cons_general").to_numpy().copy()
 y[y< 4] = 0
 y[y>= 4] = 1
 
@@ -48,6 +48,11 @@ df['pred_accuracy'] = score_int
 # Bar plot by region
 
 sns.set_color_codes("dark")
-ax = sns.barplot(x="region", y="pred_accuracy", data=df, palette = "Greens_d")
+ax = sns.barplot(
+    x="region",
+    y="pred_accuracy",
+    data=df,
+    color="green"
+)
 ax.set(xlabel="Region", ylabel = "Model accuracy")
 plt.savefig("by_region.png",dpi=80)
